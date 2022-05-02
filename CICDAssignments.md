@@ -118,3 +118,8 @@ pipeline {
   } 
 }
 ```
+
+### Una vez creadas las pipes, para lanzarlas:
+
+`docker build -t lemoncode/jenkins -f gradle.Dockerfile .`
+`./start_jenkins.sh lemoncode/jenkins jenkins jenkins-gradle-docker-certs jenkins-gradle-data`
