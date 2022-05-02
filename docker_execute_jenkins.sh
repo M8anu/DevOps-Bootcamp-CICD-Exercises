@@ -4,7 +4,7 @@ NETWORK=$2
 CERTS_VOLUME=$3
 DATA_VOLUME=$4
 
-# Reference: https://forums.docker.com/t/how-to-filter-docker-ps-by-exact-name/2880/3
+# https://forums.docker.com/t/how-to-filter-docker-ps-by-exact-name/2880/3
 
 if [[ ! "$(docker network ls --format '{{.Name}}' --filter name=^${NETWORK}$)" ]]; then
   docker network create $NETWORK
@@ -21,7 +21,6 @@ if [[ ! "$(docker volume ls --format '{{.Name}}' --filter name=^${DATA_VOLUME}$)
   echo jenkins data "$DATA_VOLUME"
 fi
 
-# Start Docker in Docker into jenkins network
 docker container run --name jenkins-docker --rm --detach \
     --privileged --network "$NETWORK" --network-alias docker \
     --env DOCKER_TLS_CERTDIR=/certs \
@@ -29,7 +28,6 @@ docker container run --name jenkins-docker --rm --detach \
     --volume "$DATA_VOLUME":/var/jenkins_home \
     docker:dind
 
-# Start Jenkins in the same network
 docker container run --name jenkins-gradle --rm --detach \
   --network "$NETWORK" --env DOCKER_HOST=tcp://docker:2376 \
   --env DOCKER_CERT_PATH=/certs/client --env DOCKER_TLS_VERIFY=1 \
