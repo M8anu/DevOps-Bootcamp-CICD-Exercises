@@ -1,6 +1,6 @@
 # Ejercicios
  
-## Ejercios Jenkins
+## Ejercicios Jenkins
  
 ### 1. CI/CD de una Java + Gradle
  
